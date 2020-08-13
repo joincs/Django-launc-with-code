@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% block title %} Landing Page -- Share{% endblock%}{%load static %}
+{% block jquery %}
+
+$signUpCount = {{count}};
+
+//$(".progress-bar").css("width","80%"),.attr("aria-valuenow","80%").text("80%")
+
+function completedBlock(progressBarId){
+  $(progressBarId).css("width","100%").attr("aria-valuenow","100%").text("Completed");
+};
+
+function setNewPerc(progressBarId, percentNum, newText){
+  $(progressBarId).css("width", percentNum + "%").attr("aria-valuenow", percentNum).text(newText);
+};
+
+if ($signUpCount == 0) {
+
+}
+else if ($signUpCount > 0 && $signUpCount < 25){
+  $newPercent = $signUpCount/25 * 100;
+  setNewPerc("#count25", $newPercent, "Number of Friends: " + $signUpCount)
+
+}
+else if ($signUpCount >=25 && $signUpCount < 50){
+  completedBlock("#count25")
+
+  $newCount = $signUpCount - 25;
+  $newPercent = $newCount/(50-25) * 100;
+  setNewPerc("#count50", $newPercent, "Number of Friends: " + $signUpCount)
+}
+else if ($signUpCount >=50 && $signUpCount < 75){
+  completedBlock("#count25")
+  completedBlock("#count50")
+
+  $newCount = $signUpCount - 50;
+  $newPercent = $newCount/(75-25) * 100;
+  setNewPerc("#count75", $newPercent, "Number of Friends: " + $signUpCount)
+}
+else if ($signUpCount >=75 && $signUpCount < 100){
+  completedBlock("#count25")
+  completedBlock("#count50")
+  completedBlock("#count75")
+
+  $newCount = $signUpCount - 75;
+  $newPercent = $newCount/(100-75) * 100;
+  setNewPerc("#count100", $newPercent, "Number of Friends: " + $signUpCount)
+}
+else {
+  $("#count25").css("width","100%").attr("aria-valuenow","100%").text("Completed");
+  $("#count50").css("width","100%").attr("aria-valuenow","100%").text("Completed");
+  $("#count75").css("width","100%").attr("aria-valuenow","100%").text("Completed");
+  $("#count100").css("width","100%").attr("aria-valuenow","100%").text("Completed");
+}
+{% endblock %}
+
+
+
+<style>
+  .well {
+    background-color: white;
+  }
+</style>
+{% block content %}
+<div class="jumbotron" style="margin-top: 50px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img
+          src="{% static 'asset/images/rocket.jpg' %}"
+          height="500px"
+          width="550px"
+        />
+      </div>
+      <div class="col-md-6" style='text-align:center;'>
+        <i class="fa fa-share-alt fa-5x"></i>
+        <h1 class="display-3" style="margin: 20px;">
+          Invite Friends & Earn Rewards
+        </h1>
+        <br />
+          Share your unique link below via Email, Facebook, Twitter,<br />
+          &nbsp;&nbsp;Reddit,
+          or Linkedin to earn rewards from <br />
+          &nbsp;&nbsp;BoringDevStuff.com
+        </p>
+        <div class="well" style="color: black; text-align: center;">
+          {{ref_url}}
+        </div>
+        <div style="margin-left:160px;">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ref_url}}">
+            <i class="fa fa-facebook-square fa-4x" style="color: #3b5998;"></i>
+          </a>
+
+          <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20{{ref_url}}">
+            <i class="fa fa-twitter-square fa-4x" style="color: #4099ff;"></i>
+          </a>
+
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ref_url}}&title=Be%20first%20%7C%20Join%20Our%20Course%20for%20Entrepreneurs&summary=Join%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source={{ref_url}}">
+            <i class="fa fa-linkedin-square fa-4x" style="color: #007bb6;"></i>
+          </a>
+          
+          <a href="http://www.reddit.com/submit?url={{ref_url}}&title=Unlock%20to%20Learn%20Swift%20for%20Free!%20By%20Swift%20for%20Entrepreneurs.%20Made%20for%20Non%20Techincals.">
+            <i class="fa fa-reddit-square fa-4x" style="color: #900020;"></i>
+          </a>
+          
+
+          <a href='https://plus.google.com/share?url={{ref_url}}'>
+            <i class="fa fa-google-plus-square fa-4x" style="color: #d34836;"></i>
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<div class='container' style="text-align:center;">
+  Joined number is: {{ count }}<br/>
+  
+<div class="row">
+	<div class="col-sm-3">
+	<h3>25 Joined</h3>
+		<div class="progress">
+			  <div class="progress-bar" id="count25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			   0%
+			  </div>
+		</div>
+	</div>
+	<div class="col-sm-3">
+	<h3>50 Joined</h3>
+		<div class="progress">
+			  <div class="progress-bar" id="count50" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			   0%
+			  </div>
+		</div>
+	</div>
+	<div class="col-sm-3">
+	<h3>75 Joined</h3>
+		<div class="progress">
+			  <div class="progress-bar" id="count75" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			   0%
+			  </div>
+		</div>
+	</div>
+	<div class="col-sm-3">
+	<h3>100 Joined</h3>
+		<div class="progress">
+			  <div class="progress-bar" id="count100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			   0%
+			  </div>
+		</div>
+	</div>
+</div>
+
+{% include 'footer.html' %}
+
+
+{% endblock %}
